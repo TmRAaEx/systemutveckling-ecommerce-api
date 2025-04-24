@@ -6,7 +6,6 @@ import {
   WithId,
   ObjectId,
   Document,
-  OptionalId,
   OptionalUnlessRequiredId,
   InsertOneResult,
 } from "mongodb";

@@ -1,25 +1,15 @@
 //base file for routes
 import { mongoDBClient } from "@config/database";
+import ProductController from "@controllers/productController";
 import Product from "@models/Product";
 import { Router, Request, Response } from "express";
-export const baseRoutes = Router();
 
-baseRoutes.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeSctipt");
-});
+export const router = Router();
 
-//TODO refactor to a controller
-baseRoutes.get("/products/", async (req: Request, res: Response) => {
-  let products = await Product.getAll();
-  res.send(products);
-});
+const productController = new ProductController();
 
-baseRoutes.get("/products/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  let product = new Product();
-  product.id = mongoDBClient.toObjectId(id);
-  await product.load();
-  res.send(product);
-});
+router.get("/products/", productController.getAll);
+
+router.get("/products/:id", productController.getById);
 
 //import other routes

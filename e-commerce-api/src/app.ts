@@ -1,8 +1,7 @@
 //app setup
 import express, { Express } from "express";
-import { baseRoutes } from "./routes";
+import { router } from "./routes";
 import cors from "cors";
-
 
 export const app: Express = express();
 
@@ -12,4 +11,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //routes
-app.use("/", baseRoutes);
+app.use("/", router);

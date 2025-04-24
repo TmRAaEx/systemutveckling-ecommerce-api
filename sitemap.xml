@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Homepage -->
+    <url>
+        <loc>https://www.example.com/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Product Pages -->
+    <url>
+        <loc>https://www.example.com/products</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.example.com/products/category1</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.example.com/products/category2</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- User Account Pages -->
+    <url>
+        <loc>https://www.example.com/account</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.example.com/account/orders</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Admin Interface -->
+    <url>
+        <loc>https://www.example.com/admin</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://www.example.com/admin/products</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://www.example.com/admin/orders</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
+    </url>
+</urlset>

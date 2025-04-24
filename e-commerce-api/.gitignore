@@ -1,0 +1,41 @@
+# Node.js dependencies
+/node_modules/
+
+/# TypeScript build artifacts
+/dist/
+/build/
+
+/# TypeScript cache
+*.tsbuildinfo
+
+# VS Code settings
+.vscode/
+
+/# IDE-specific files (e.g., JetBrains)
+.idea/
+
+/# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# NPM logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Package-lock / yarn-lock
+package-lock.json
+yarn.lock
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.bak
+*.swp

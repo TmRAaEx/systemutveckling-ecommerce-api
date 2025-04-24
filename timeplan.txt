@@ -1,11 +1,18 @@
-
 Databas 1 dag.
     - db diagram 1-2 timmar -- Färdig ca 1 timme
     - klass för uppkoppling 1 timme -- Färdig ca 1 timme 20min
-    - klass för databas object 1 timme  
-    - klasser för specifika collections 2 timmar
+    - klass för databas object 1 timme  -- färdig ca 2.5 timmar, gick över tiden eftersom jag började se sätt att göra livet enklare med subklasserna
+    - klasser för specifika collections 2 timmar -- påbörjat den för produkten samtidigt som jag utvecklat DatabaseObject, resterande klasser border gå på 30 minuter totalt
+    - Lägg till add-metod i databasklassen och save-metod i DatabaseObject -- ca 2–3 timmar - tog ca 30 min och han lägga 30 min extra på tester
 
-Sitemap 1 timme
+Sitemap 1 timme -- färdig, tog 5 minuter
+
+Backend endpoints - 
+    - skapa controller klasser för alla routes - ca 4 timmar 1 timme per
+        - productcontroller
+        - usercontroller
+        - ordercontroller
+        - cartcontroller 
 
 Frontend / UI 3 dagar
 

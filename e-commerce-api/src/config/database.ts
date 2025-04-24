@@ -1,8 +1,19 @@
-import { MongoClient, Db, Collection, Filter, WithId, ObjectId } from "mongodb";
+import {
+  MongoClient,
+  Db,
+  Collection,
+  Filter,
+  WithId,
+  ObjectId,
+  Document,
+  OptionalId,
+  OptionalUnlessRequiredId,
+  InsertOneResult,
+} from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
-type myCollections = {
+export type myCollections = {
   collectionName: "products" | "users" | "carts";
 };
 
@@ -116,6 +127,34 @@ class MongoDBClient {
       await this.client.close();
       this.isConnected = false;
       console.log(`[database]: 🔌 Disconnected from MongoDB`);
+    }
+  }
+
+  public async add<T extends Document>(
+    collectionName: myCollections["collectionName"],
+    document: OptionalUnlessRequiredId<T>
+  ): Promise<InsertOneResult<T>> {
+    const collection = await this.getCollection<T>(collectionName);
+    const result = await collection.insertOne(document);
+    return result;
+  }
+
+  public async update<T extends Document>(
+    collectionName: myCollections["collectionName"],
+    filter: Filter<T>,
+    updateData: Partial<T>
+  ): Promise<void> {
+    const collection = await this.getCollection<T>(collectionName);
+    const result = await collection.updateOne(filter, { $set: updateData });
+
+    if (result.matchedCount === 0) {
+      console.warn(
+        `[database]: No document matched the filter in collection "${collectionName}".`
+      );
+    } else {
+      console.log(
+        `[database]: Updated ${result.modifiedCount} document(s) in collection "${collectionName}".`
+      );
     }
   }
 }

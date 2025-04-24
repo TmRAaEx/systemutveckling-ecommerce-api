@@ -1,26 +1,35 @@
-import { mongoDBClient } from "@config/database";
+import { myCollections } from "@config/database";
 import DatabaseObject from "./DatabaseObject";
 
+/**
+ * Represents a product in the e-commerce system.
+ */
 export default class Product extends DatabaseObject {
+  public price: number = 0;
+  public name: string = "";
+  public image: string = "";
+  public description: string = "";
+
   constructor() {
     super();
   }
 
-  public getName() {}
-  public getPrice() {}
-  public getImage() {}
+  /**
+   * Retrieves the name of the database collection for products.
+   * @returns {myCollections["collectionName"]} The name of the collection ("products").
+   */
+  public getCollection(): myCollections["collectionName"] {
+    return "products";
+  }
 
-  static async getAllProducts(): Promise<Product[]> {
-    const items = await mongoDBClient.findAll("products");
-
-    const products = items.map((data) => {
-      let newProduct = new Product();
-
-      //TODO add data
-
-      return newProduct;
-    });
-
-    return products;
+  /**
+   * Maps database data to the product instance.
+   * @param data The raw database document.
+   */
+  public setupFromDatabase(data: Record<string, any>): void {
+    this.price = data.price || 0;
+    this.name = data.name || "";
+    this.image = data.img_url || "";
+    this.description = data.description || "";
   }
 }

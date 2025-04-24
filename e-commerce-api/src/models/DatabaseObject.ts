@@ -4,10 +4,10 @@ export default class DatabaseObject {
   constructor() {}
 
   public save() {
-    //AH TODO: Implement functionality
+    //TODO (AH): Implement functionality
   }
 
   public load() {
-    //AH TODO: Implement functionality
+    //TODO (AH): Implement functionality
   }
 }

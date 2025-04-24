@@ -2,6 +2,10 @@ import { MongoClient, Db, Collection, Filter, WithId, ObjectId } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
+type myCollections = {
+  collectionName: "products" | "users" | "carts";
+};
+
 /**
  * A wrapper class for managing a MongoDB connection using the native MongoDB driver.
  */
@@ -80,7 +84,7 @@ class MongoDBClient {
    * @returns An array of documents typed as T.
    */
   public async findAll<T extends Document = Document>(
-    collectionName: string,
+    collectionName: myCollections["collectionName"],
     filter: Filter<T> = {}
   ): Promise<WithId<T>[]> {
     const collection = await this.getCollection<T>(collectionName);

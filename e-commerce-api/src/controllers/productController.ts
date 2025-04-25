@@ -35,7 +35,7 @@ export default class ProductController extends BaseController {
   });
 
   /**
-   * Handles PUT requests to update an existing product.
+   * Handles PUT & PATCH requests to update an existing product.
    * Updates the product with the provided data and responds with the updated product.
    *
    * @param req - The Express request object.
@@ -67,6 +67,17 @@ export default class ProductController extends BaseController {
     const { name, price, image, description } = req.body;
     const product = new Product();
 
+    if (!name || !price || !image || !description) {
+      console.error(
+        "All fields: [name], [price], [image], [description] must be filled"
+      );
+
+      res
+        .status(400)
+        .json({ error: "Missing fields name, price, image or description" });
+      return;
+    }
+
     product.price = price;
     product.name = name;
     product.image = image;
@@ -76,6 +87,20 @@ export default class ProductController extends BaseController {
     res.status(201).json(product);
   });
 
+  /**
+   * Handles DELETE requests to delete a product.
+   * Deletes the product specified by the id param
+   * @param req - The Express request object.
+   * @param res - The Express response object.
+   */
+  public delete = this.handle(async (req, res) => {
+    const { id } = req.params;
+
+    const product = await ProductController.createProductInstance(id);
+
+    await product.delete();
+    res.status(204);
+  });
   /**
    * Helper function to create and load a product instance by its ID.
    *

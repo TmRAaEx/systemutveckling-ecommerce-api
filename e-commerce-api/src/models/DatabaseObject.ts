@@ -125,4 +125,17 @@ export default class DatabaseObject {
       this.id = result.insertedId; // Set the new ID
     }
   }
+
+  public async delete() {
+    const collection = this.getCollection();
+    if (!collection) {
+      throw new Error("[databaseObject]: Collection name must be defined.");
+    }
+
+    if (!this.id) {
+      throw new Error("[databaseObject]: id is required");
+    }
+
+    await mongoDBClient.deleteById(collection, this.id);
+  }
 }

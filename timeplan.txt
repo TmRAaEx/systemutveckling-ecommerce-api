@@ -9,7 +9,7 @@ Sitemap 1 timme -- färdig, tog 5 minuter
 
 Backend endpoints - 
     - skapa controller klasser för alla routes - ca 4 timmar 1 timme per
-        - productcontroller
+        - productcontroller - färdig 1h 20 min
         - usercontroller
         - ordercontroller
         - cartcontroller 

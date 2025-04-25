@@ -156,6 +156,32 @@ class MongoDBClient {
       );
     }
   }
+
+  public async deleteById<T extends Document>(
+    collectionName: myCollections["collectionName"],
+    id: ObjectId
+  ): Promise<number> {
+    if (!id) {
+      throw new Error("[database]: Cannot delete document without an _id.");
+    }
+
+    const collection = await this.getCollection(collectionName);
+    const result = await collection.deleteOne({
+      _id: id,
+    });
+
+    if (result.deletedCount === 0) {
+      console.warn(
+        `[database]: No document found to delete in collection "${collectionName}".`
+      );
+    } else {
+      console.log(
+        `[database]: Deleted ${result.deletedCount} document(s) from collection "${collectionName}".`
+      );
+    }
+
+    return result.deletedCount || 0;
+  }
 }
 
 const mongoUri = process.env.MONGO_URI || "";

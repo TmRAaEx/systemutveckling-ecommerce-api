@@ -13,7 +13,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export type myCollections = {
-  collectionName: "products" | "users" | "carts" | "orders";
+  collectionName: "products" | "users" | "carts" | "orders" | "categories";
 };
 
 /**

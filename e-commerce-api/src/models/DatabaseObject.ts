@@ -26,6 +26,7 @@ export default class DatabaseObject {
   public setupFromDatabase(data: Record<string, any>): void {
     console.warn(
       "[databaseObject]: setupFromDatabase should be overridden by child class",
+      this,
       this
     );
   }
@@ -68,7 +69,7 @@ export default class DatabaseObject {
 
     if (!collectionName) {
       throw new Error(
-        "[databaseObject]: Collection name must be defined in the subclass."
+        `[databaseObject]: Collection name must be defined in the subclass.${instance}`
       );
     }
 
@@ -111,14 +112,14 @@ export default class DatabaseObject {
     const data = this.toJSON(); // Serialize the object to exclude internal properties
 
     if (this.id) {
-      // Update existing document
+      // -----Update existing document-----
       await mongoDBClient.update(
         collectionName,
         { _id: this.id } as Filter<DatabaseObject>,
         data
       );
     } else {
-      // Add new document
+      // -----Add new document-----
       const result = await mongoDBClient.add(
         collectionName,
         data as OptionalUnlessRequiredId<this>
@@ -126,7 +127,9 @@ export default class DatabaseObject {
       this.id = result.insertedId; // Set the new ID
     }
   }
-
+  /**
+   * Deletes the current object from the database
+   */
   public async delete() {
     const collection = this.getCollection();
     if (!collection) {

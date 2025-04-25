@@ -1,5 +1,6 @@
 import { myCollections } from "@config/database";
 import DatabaseObject from "./DatabaseObject";
+import { ObjectId } from "mongodb";
 
 /**
  * Represents a product in the e-commerce system.
@@ -9,6 +10,7 @@ export default class Product extends DatabaseObject {
   public name: string = "";
   public image: string = "";
   public description: string = "";
+  public category: ObjectId = new ObjectId();
 
   constructor() {
     super();
@@ -31,5 +33,6 @@ export default class Product extends DatabaseObject {
     this.name = data.name || "";
     this.image = data.img_url || "";
     this.description = data.description || "";
+    this.category = data.category;
   }
 }

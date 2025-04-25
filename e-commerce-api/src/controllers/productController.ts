@@ -41,7 +41,7 @@ export default class ProductController extends BaseController {
    */
   public update = this.handle(async (req, res) => {
     const { id } = req.params;
-    const { name, price, image, description } = req.body;
+    const { name, price, image, description, category } = req.body;
 
     const product = await this.createInstance(id, Product);
 
@@ -49,6 +49,7 @@ export default class ProductController extends BaseController {
     product.name = name;
     product.image = image;
     product.description = description;
+    product.category = category;
     await product.save();
 
     res.status(200).json(product);
@@ -62,7 +63,7 @@ export default class ProductController extends BaseController {
    * @param res - The Express response object.
    */
   public create = this.handle(async (req, res) => {
-    const { name, price, image, description } = req.body;
+    const { name, price, image, description, category } = req.body;
     const product = new Product();
 
     if (!name || !price || !image || !description) {
@@ -80,6 +81,7 @@ export default class ProductController extends BaseController {
     product.name = name;
     product.image = image;
     product.description = description;
+    product.category = category;
     await product.save();
 
     res.status(201).json(product);

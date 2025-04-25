@@ -35,6 +35,7 @@ export default class UserController extends BaseController {
    */
   public getById = this.handle(async (req, res) => {
     const { id } = req.params;
+    
     const user = await this.createInstance(id, User);
     const sanitizedUser = this.sanitizeUsers([user]);
     res.status(200).json(sanitizedUser[0]);

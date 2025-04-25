@@ -90,6 +90,7 @@ export default class DatabaseObject {
    */
   public toJSON() {
     const { id, collection, ...otherData } = this;
+    
     if (id) {
       return { ...otherData, _id: id }; // Map `id` to `_id`
     }

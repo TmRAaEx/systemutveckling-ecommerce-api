@@ -1,6 +1,5 @@
 import Product from "@models/Product";
 import BaseController from "./BaseController";
-import { mongoDBClient } from "@config/database";
 
 /**
  * ProductController handles all operations related to products,
@@ -29,7 +28,7 @@ export default class ProductController extends BaseController {
    */
   public getById = this.handle(async (req, res) => {
     const { id } = req.params;
-    const product = await ProductController.createProductInstance(id);
+    const product = await this.createInstance(id, Product);
 
     res.status(200).json(product);
   });
@@ -45,7 +44,7 @@ export default class ProductController extends BaseController {
     const { id } = req.params;
     const { name, price, image, description } = req.body;
 
-    const product = await ProductController.createProductInstance(id);
+    const product = await this.createInstance(id, Product);
 
     product.price = price;
     product.name = name;
@@ -96,22 +95,9 @@ export default class ProductController extends BaseController {
   public delete = this.handle(async (req, res) => {
     const { id } = req.params;
 
-    const product = await ProductController.createProductInstance(id);
+    const product = await this.createInstance(id, Product);
 
     await product.delete();
     res.status(204);
   });
-  /**
-   * Helper function to create and load a product instance by its ID.
-   *
-   * @param id - The product ID as a string.
-   * @returns A loaded Product instance.
-   * @throws Will throw an error if the product cannot be found or loaded.
-   */
-  static async createProductInstance(id: string): Promise<Product> {
-    const product = new Product();
-    product.id = mongoDBClient.toObjectId(id);
-    await product.load();
-    return product;
-  }
 }

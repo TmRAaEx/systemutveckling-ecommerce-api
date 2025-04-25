@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import DatabaseObject from "@models/DatabaseObject";
+import { mongoDBClient } from "@config/database";
 
 /**
  * BaseController provides a foundation for all controllers in the application.
@@ -24,4 +26,22 @@ export default abstract class BaseController {
       }
     };
   };
+
+  /**
+   * Helper function to create and load an instance of a DatabaseObject subclass by its ID.
+   *
+   * @param id - The object ID as a string.
+   * @param Model - The class of the DatabaseObject subclass (e.g., Product, User).
+   * @returns A loaded instance of the specified class.
+   * @throws Will throw an error if the object cannot be found or loaded.
+   */
+  protected async createInstance<T extends DatabaseObject>(
+    id: string,
+    Model: new () => T
+  ): Promise<T> {
+    const instance = new Model();
+    instance.id = mongoDBClient.toObjectId(id);
+    await instance.load();
+    return instance;
+  }
 }

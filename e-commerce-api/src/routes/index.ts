@@ -21,4 +21,6 @@ router.delete("/products/delete/:id", productController.delete);
 
 router.get("/users/", userController.getAll);
 
+router.get("/users/:id", userController.getById);
+
 //import other routes

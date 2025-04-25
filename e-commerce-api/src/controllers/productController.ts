@@ -29,7 +29,6 @@ export default class ProductController extends BaseController {
   public getById = this.handle(async (req, res) => {
     const { id } = req.params;
     const product = await this.createInstance(id, Product);
-
     res.status(200).json(product);
   });
 

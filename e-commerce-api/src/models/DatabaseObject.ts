@@ -26,7 +26,6 @@ export default class DatabaseObject {
   public setupFromDatabase(data: Record<string, any>): void {
     console.warn(
       "[databaseObject]: setupFromDatabase should be overridden by child class",
-      this,
       this
     );
   }

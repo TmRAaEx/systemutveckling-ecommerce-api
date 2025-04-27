@@ -1,4 +1,4 @@
-import User from "@models/User";
+import User from "@models/entities/User";
 import BaseController from "./BaseController";
 
 /**
@@ -127,7 +127,7 @@ export default class UserController extends BaseController {
    */
   private sanitizeUsers(users: User[]): Record<string, any>[] {
     return users.map((user) => {
-      const { admin, passwordHash, ...sanitizedUser } = user.toJSON();
+      const { role, passwordHash, ...sanitizedUser } = user.toJSON();
       return sanitizedUser;
     });
   }

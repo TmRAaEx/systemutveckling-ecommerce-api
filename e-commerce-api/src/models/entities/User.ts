@@ -1,5 +1,5 @@
 import { myCollections } from "@config/database";
-import DatabaseObject from "./DatabaseObject";
+import DatabaseObject from "../base/DatabaseObject";
 import bcrypt from "bcrypt";
 
 /**
@@ -9,7 +9,7 @@ export default class User extends DatabaseObject {
   public username: string = "";
   public email: string = "";
   public passwordHash: string = "";
-  public admin: boolean = false;
+  public role: "admin" | "user" = "user";
 
   constructor() {
     super();

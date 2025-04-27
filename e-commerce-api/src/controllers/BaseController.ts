@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import DatabaseObject from "@models/DatabaseObject";
+import DatabaseObject from "@models/base/DatabaseObject";
 import { mongoDBClient } from "@config/database";
 
 /**

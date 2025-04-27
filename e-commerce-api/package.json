@@ -88,7 +88,7 @@
     "typescript": "^5.8.2"
   },
   "scripts": {
-    "test": "ts-node -r tsconfig-paths/register src/Tests/ProductTests.ts",
+    "test": "ts-node -r tsconfig-paths/register src/Tests/OrderTests.ts",
     "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register\" src/index.ts"
   },
   "keywords": [],

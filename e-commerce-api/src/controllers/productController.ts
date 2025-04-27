@@ -1,4 +1,4 @@
-import Product from "@models/Product";
+import Product from "@models/entities/Product";
 import BaseController from "./BaseController";
 
 /**

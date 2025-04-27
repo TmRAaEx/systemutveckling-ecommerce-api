@@ -1,4 +1,4 @@
-import Product from "@models/Product";
+import Product from "@models/entities/Product";
 import { ObjectId } from "mongodb";
 import { mongoDBClient } from "@config/database"; // Ensure you import your database client
 

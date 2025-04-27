@@ -1,5 +1,5 @@
 import { myCollections } from "@config/database";
-import DatabaseObject from "./DatabaseObject";
+import DatabaseObject from "../base/DatabaseObject";
 
 /**
  * Represents a category in the e-commerce system.

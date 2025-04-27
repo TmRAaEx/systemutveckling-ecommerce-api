@@ -27,23 +27,18 @@ export default class OrderController extends BaseController {
     const { customerDetails, lineItems } = req.body;
     const order = new Order();
 
-    console.log(req.body);
-
     order.customerDetails = customerDetails;
 
     for (const item of lineItems) {
       if (!item.product) {
         continue;
       }
-      console.log(item.product);
       const product = await this.createInstance(item.product.id, Product);
       product.price = item.product.price;
       order.addProduct(product, item.quantity);
     }
 
     await order.save();
-
-    console.log(order);
 
     res.status(201).json(order);
   });

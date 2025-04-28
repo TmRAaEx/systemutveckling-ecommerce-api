@@ -5,10 +5,10 @@ export default class LineItem {
   public quantity: number = 0;
   public price: number = 0;
 
-  constructor(product: Product, quantity: number, price: number) {
+  constructor(product: Product, quantity: number) {
     this.product = product;
     this.quantity = quantity;
-    this.price = this.price;
+    this.price = product.price;
   }
 
   public setQuantity(quantity: number) {

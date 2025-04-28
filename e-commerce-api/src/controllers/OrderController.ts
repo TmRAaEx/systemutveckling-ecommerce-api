@@ -2,6 +2,7 @@ import Order from "@models/entities/Order";
 import BaseController from "./BaseController";
 import Product from "@models/entities/Product";
 import LineItem from "@models/base/LineItem";
+import { ObjectId } from "mongodb";
 
 export default class OrderController extends BaseController {
   public getAll = this.handle(async (req, res) => {
@@ -16,12 +17,10 @@ export default class OrderController extends BaseController {
     order.lineItems;
 
     order.lineItems.forEach((item) => {
-      if (!item.product) {
+      if (!item.product?.id) {
         return;
       }
       const product = new Product();
-      console.log(product);
-
       product.id = item.product.id;
       product.price = item.price;
       order.addProduct(product, item.quantity);
@@ -55,6 +54,7 @@ export default class OrderController extends BaseController {
 
     // Load the existing order
     const order = await this.createInstance(id, Order);
+
     // Update customer details if provided
     if (customerDetails) {
       order.customerDetails = {
@@ -65,17 +65,39 @@ export default class OrderController extends BaseController {
 
     // Update line items if provided
     if (Array.isArray(lineItems)) {
-      // Clear existing line items
-      order.lineItems = [];
+      // Process each line item in the request
+      lineItems.forEach(
+        (item: {
+          product: { id: ObjectId; price: number };
+          quantity: number;
+        }) => {
+          const existingItem = order.lineItems.find(
+            (lineItem) => lineItem.product?.id === item.product.id
+          );
 
-      // Add new line items
-      lineItems.forEach((item: LineItem) => {
-        if (!item.product) {
-          return;
+          if (existingItem) {
+            // Update the quantity if the product already exists
+            existingItem.setQuantity(item.quantity);
+          } else {
+            // Add a new product if it doesn't exist
+            const product = new Product();
+            product.id = item.product.id;
+            product.price = item.product.price;
+            product.toJSON();
+            order.addProduct(product, item.quantity);
+          }
         }
-        const product = new Product();
-        product.id = item.product.id;
-        order.addProduct(product, item.quantity);
+      );
+
+      // Remove line items that are not in the updated list
+      order.lineItems.forEach((lineItem) => {
+        const isInUpdatedList = lineItems.some(
+          (item) => item.product.id === lineItem.product?.id
+        );
+
+        if (!isInUpdatedList) {
+          order.removeLineItem(lineItem);
+        }
       });
     }
 

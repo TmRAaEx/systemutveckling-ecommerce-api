@@ -18,11 +18,10 @@ export default class LineItemsObject extends DatabaseObject {
       return existingItem;
     }
 
-
     if (!product) {
       return;
     }
-    const newLineItem = new LineItem(product, quantity, product.price);
+    const newLineItem = new LineItem(product, quantity);
     this.lineItems.push(newLineItem);
     return newLineItem;
   }

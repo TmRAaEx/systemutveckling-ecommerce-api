@@ -7,7 +7,7 @@ export default class CartController extends BaseController {
     const { id } = req.params;
     const cart = await this.createInstance(id, Cart);
     cart.lineItems.forEach((item) => {
-      if (!item.product) {
+      if (!item.product?.id) {
         return;
       }
       const product = new Product();
@@ -33,5 +33,10 @@ export default class CartController extends BaseController {
     await cart.save();
 
     res.status(201).json(cart);
+  });
+
+  public update = this.handle(async (req, res) => {
+    const { id } = req.params;
+    const { linetItems } = req.body;
   });
 }

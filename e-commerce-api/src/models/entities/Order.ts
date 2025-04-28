@@ -1,7 +1,6 @@
 import { myCollections } from "@config/database";
 import customerDetails from "@interfaces/Customer";
 import LineItemsObject from "../base/LineItemsObject";
-import LineItem from "@models/base/LineItem";
 
 /**
  * Represents an order in the e-commerce system.
@@ -36,13 +35,13 @@ export default class Order extends LineItemsObject {
     if (Array.isArray(data.lineItems)) {
       this.lineItems = data.lineItems
         .map((item: any) => {
-          if (!item.product) {
+          if (!item.productId) {
             console.warn("[Order]: Skipping line item with missing product.");
             return null;
           }
 
           // Use addProduct to add the product and quantity
-          this.addProduct(item.product, item.quantity);
+          this.addProduct(item.productId, item.quantity);
           return item; // Return the item for mapping
         })
         .filter((item) => item !== null); // Filter out null values
@@ -51,6 +50,4 @@ export default class Order extends LineItemsObject {
       this.lineItems = [];
     }
   }
-
- 
 }

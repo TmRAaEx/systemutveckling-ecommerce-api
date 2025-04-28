@@ -12,12 +12,18 @@ export default class OrderController extends BaseController {
   public getById = this.handle(async (req, res) => {
     const { id } = req.params;
     const order = await this.createInstance(id, Order);
+
+    order.lineItems;
+
     order.lineItems.forEach((item) => {
-      if (!item.productId) {
+      if (!item.product) {
         return;
       }
       const product = new Product();
-      product.id = item.productId;
+      console.log(product);
+
+      product.id = item.product.id;
+      product.price = item.price;
       order.addProduct(product, item.quantity);
     });
     res.status(200).json(order);
@@ -64,11 +70,11 @@ export default class OrderController extends BaseController {
 
       // Add new line items
       lineItems.forEach((item: LineItem) => {
-        if (!item.productId) {
+        if (!item.product) {
           return;
         }
         const product = new Product();
-        product.id = item.productId;
+        product.id = item.product.id;
         order.addProduct(product, item.quantity);
       });
     }

@@ -11,14 +11,18 @@ export default class LineItemsObject extends DatabaseObject {
 
   public addProduct(product: Product, quantity: number) {
     const existingItem = this.lineItems.find(
-      (item) => item.productId === product.id
+      (item) => item.product?.id === product.id
     );
     if (existingItem) {
       existingItem.setQuantity(existingItem.quantity + quantity);
       return existingItem;
     }
 
-    const newLineItem = new LineItem(product.id, quantity, product.price);
+
+    if (!product) {
+      return;
+    }
+    const newLineItem = new LineItem(product, quantity, product.price);
     this.lineItems.push(newLineItem);
     return newLineItem;
   }

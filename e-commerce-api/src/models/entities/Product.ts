@@ -31,7 +31,7 @@ export default class Product extends DatabaseObject {
   public setupFromDatabase(data: Record<string, any>): void {
     this.price = data.price || 0;
     this.name = data.name || "";
-    this.image = data.img_url || "";
+    this.image = data.image || "";
     this.description = data.description || "";
     this.category = data.category;
   }

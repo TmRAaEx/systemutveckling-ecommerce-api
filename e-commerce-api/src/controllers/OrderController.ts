@@ -1,7 +1,6 @@
 import Order from "@models/entities/Order";
 import BaseController from "./BaseController";
 import Product from "@models/entities/Product";
-import LineItem from "@models/base/LineItem";
 import { ObjectId } from "mongodb";
 
 export default class OrderController extends BaseController {

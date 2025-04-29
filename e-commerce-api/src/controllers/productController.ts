@@ -19,6 +19,19 @@ export default class ProductController extends BaseController {
     res.status(200).json(products);
   });
 
+  public getBySearch = this.handle(async (req, res) => {
+    const { search } = req.query;
+    const searchString = typeof search === "string" ? search : "";
+    const filter = {
+      $or: [
+        { name: { $regex: searchString, $options: "i" } }, // Case-insensitive search in the name field
+        { description: { $regex: searchString, $options: "i" } }, // Case-insensitive search in the description field
+      ],
+    };
+    const products = await Product.getAll(filter);
+    res.status(200).json(products);
+  });
+
   /**
    * Handles GET requests to fetch a product by its ID.
    * Responds with the product details if found.

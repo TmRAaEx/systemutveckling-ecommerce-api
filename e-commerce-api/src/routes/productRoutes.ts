@@ -1,11 +1,12 @@
-import ProductController from "@controllers/ProductController";
+import ProductController from "@controllers/productController";
 import { Router } from "express";
-
 
 const router = Router();
 const productController = new ProductController();
 
 router.get("/", productController.getAll);
+
+router.get("/search", productController.getBySearch);
 
 router.get("/:id", productController.getById);
 

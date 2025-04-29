@@ -1,4 +1,4 @@
-import ProductController from "@controllers/productController";
+import ProductController from "@controllers/ProductController";
 import { Router } from "express";
 
 

@@ -61,7 +61,8 @@ export default class DatabaseObject {
    * Retrieves all documents from the collection and returns instances of the subclass.
    */
   static async getAll<T extends DatabaseObject>(
-    this: new () => T
+    this: new () => T,
+    filter: Filter<T> = {}
   ): Promise<T[]> {
     const instance = new this(); // Create an instance of the subclass
     const collectionName = instance.getCollection();
@@ -72,7 +73,7 @@ export default class DatabaseObject {
       );
     }
 
-    const items = await mongoDBClient.findAll(collectionName);
+    const items = await mongoDBClient.findAll(collectionName, filter);
 
     const results = items.map((data) => {
       const obj = new this(); // Create a new instance of the subclass

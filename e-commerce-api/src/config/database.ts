@@ -133,7 +133,7 @@ class MongoDBClient {
    * Method that adds a new document to the database based on the collection and document data
    * @param collectionName the collection to add to
    * @param document the document to add
-   * @returns the result 
+   * @returns the result
    */
   public async add<T extends Document>(
     collectionName: myCollections["collectionName"],

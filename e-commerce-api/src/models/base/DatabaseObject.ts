@@ -75,12 +75,15 @@ export default class DatabaseObject {
 
     const items = await mongoDBClient.findAll(collectionName, filter);
 
-    const results = items.map((data) => {
-      const obj = new this(); // Create a new instance of the subclass
-      obj.id = data._id;
-      obj.setupFromDatabase(data); // Use the hook for customization
-      return obj;
-    });
+    // Use Promise.all to handle asynchronous setupFromDatabase calls
+    const results = await Promise.all(
+      items.map(async (data) => {
+        const obj = new this(); // Create a new instance of the subclass
+        obj.id = data._id;
+        await obj.setupFromDatabase(data); // Await the asynchronous setup
+        return obj;
+      })
+    );
 
     return results;
   }

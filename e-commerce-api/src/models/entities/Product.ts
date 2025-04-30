@@ -1,6 +1,7 @@
 import { myCollections } from "@config/database";
 import DatabaseObject from "../base/DatabaseObject";
 import { ObjectId } from "mongodb";
+import Category from "./Category";
 
 /**
  * Represents a product in the e-commerce system.
@@ -10,7 +11,7 @@ export default class Product extends DatabaseObject {
   public name: string = "";
   public image: string = "";
   public description: string = "";
-  public category: ObjectId = new ObjectId();
+  public category: Category | null = null;
 
   constructor() {
     super();
@@ -28,11 +29,13 @@ export default class Product extends DatabaseObject {
    * Maps database data to the product instance.
    * @param data The raw database document.
    */
-  public setupFromDatabase(data: Record<string, any>): void {
+  public async setupFromDatabase(data: Record<string, any>): Promise<void> {
     this.price = data.price || 0;
     this.name = data.name || "";
     this.image = data.image || "";
     this.description = data.description || "";
-    this.category = data.category;
+    this.category = new Category();
+    this.category.id = data.category;
+    await this.category.load();
   }
 }

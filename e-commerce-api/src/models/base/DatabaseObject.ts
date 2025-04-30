@@ -32,6 +32,7 @@ export default class DatabaseObject {
 
   /**
    * Loads data from the database and populates the instance.
+   * Can be overridden for special use cases
    */
   public async load(): Promise<void> {
     const collectionName = this.getCollection();

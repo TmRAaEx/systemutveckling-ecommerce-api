@@ -1,4 +1,4 @@
-import ProductController from "@controllers/productController";
+import ProductController from "@controllers/ProductController";
 import { Router } from "express";
 
 const router = Router();
@@ -15,5 +15,7 @@ router.post("/create", productController.create);
 router.patch("/update/:id", productController.update);
 
 router.delete("/delete/:id", productController.delete);
+
+
 
 export default router;

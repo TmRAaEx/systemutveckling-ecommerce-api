@@ -1,6 +1,6 @@
 import { myCollections } from "@config/database";
 import DatabaseObject from "../base/DatabaseObject";
-import { ObjectId } from "mongodb";
+
 import Category from "./Category";
 
 /**
@@ -30,7 +30,7 @@ export default class Product extends DatabaseObject {
    * @param data The raw database document.
    */
   public async setupFromDatabase(data: Record<string, any>): Promise<void> {
-    this.price = data.price || 0;
+    this.price = data.price || 0; 
     this.name = data.name || "";
     this.image = data.image || "";
     this.description = data.description || "";

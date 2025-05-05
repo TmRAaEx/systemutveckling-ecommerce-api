@@ -14,13 +14,18 @@ Backend endpoints -
         - productcontroller - färdig 1h 20 min
         - usercontroller - färdig 1h
         - ordercontroller - färdig tog ca 2,5 timmar
-        - cartcontroller - osäker på tiden men den bör va klar
+        - cartcontroller - osäker på tiden men den bör va klar. tror det tog ungefär 2h
+
+        faktisk tid: 6h 50min
 
 Frontend / UI 3 dagar
 
 inne på timme 4 ish av Frontend arbetet och har lagt till home page, product page och product/:id page. 
-ska gå in på cart i nästa steg
+ska gå in på cart i nästa steg 
 
+färdig med cart på frontenden, ska lägga in logik för att spara den i db och sen fixa checkout. carten tog cirka 1.5h
+
+frontend hitils: ca 2 dagar arbete
 
 integrera betaltjänst: Hur långt är ett snöre?
 

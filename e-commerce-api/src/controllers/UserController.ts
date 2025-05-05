@@ -35,7 +35,7 @@ export default class UserController extends BaseController {
    */
   public getById = this.handle(async (req, res) => {
     const { id } = req.params;
-    
+
     const user = await this.createInstance(id, User);
     const sanitizedUser = this.sanitizeUsers([user]);
     res.status(200).json(sanitizedUser[0]);
@@ -101,6 +101,41 @@ export default class UserController extends BaseController {
 
     const sanitizedUser = this.sanitizeUsers([user]);
     res.status(200).json(sanitizedUser[0]);
+  });
+
+  public signIn = this.handle(async (req, res) => {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      res.status(400).json({ error: "Email and password are required." });
+      return;
+    }
+
+    // Find the user by email
+    const filter = { email: email };
+    const users = await User.getAll(filter);
+
+    // Check if user exists
+    if (users.length === 0) {
+      res.status(404).json({ error: "User not found." });
+      return;
+    }
+
+    const user = users[0]; // Assuming email is unique and only one user is returned
+    await user.load()
+    // Verify the password
+    const isPasswordValid = await user.verifyPassword(password);
+    if (!isPasswordValid) {
+      res.status(401).json({ error: "Invalid password." });
+      return;
+    }
+
+    // Respond with success (e.g., user details or a token)
+    const sanitizedUser = this.sanitizeUsers([user]);
+    res
+      .status(200)
+      .json({ message: "Sign-in successful", user: sanitizedUser[0] });
   });
 
   /**

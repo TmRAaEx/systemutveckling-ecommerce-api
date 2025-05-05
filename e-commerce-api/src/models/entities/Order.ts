@@ -13,7 +13,10 @@ export default class Order extends LineItemsObject {
   public customerDetails: customerDetails = {
     name: "",
     email: "",
+    address: ""
   };
+
+  public payment_ref: string = "";
 
   /**
    * Retrieves the name of the database collection for orders.
@@ -30,24 +33,19 @@ export default class Order extends LineItemsObject {
   public setupFromDatabase(data: Record<string, any>): void {
     // Set customer details
     this.customerDetails = data.customerDetails;
+    this.payment_ref = data.payment_ref;
 
-    // Ensure lineItems is properly populated
-    if (Array.isArray(data.lineItems)) {
-      this.lineItems = data.lineItems
-        .map((item: any) => {
-          if (!item.productId) {
-            console.warn("[Order]: Skipping line item with missing product.");
-            return null;
-          }
+    this.lineItems = data.lineItems
+      .map((item: any) => {
+        if (!item.productId) {
+          console.warn("[Order]: Skipping line item with missing product.");
+          return null;
+        }
 
-          // Use addProduct to add the product and quantity
-          this.addProduct(item.productId, item.quantity);
-          return item; // Return the item for mapping
-        })
-        .filter((item) => item !== null); // Filter out null values
-    } else {
-      console.warn("[Order]: lineItems is not an array or is missing.");
-      this.lineItems = [];
-    }
+        // Use addProduct to add the product and quantity
+        this.addProduct(item.product, item.quantity);
+        return item; // Return the item for mapping
+      })
+      .filter((item: any) => item !== null); // Filter out null values
   }
 }

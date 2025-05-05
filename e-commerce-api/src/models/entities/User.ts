@@ -48,5 +48,6 @@ export default class User extends DatabaseObject {
   public setupFromDatabase(data: Record<string, any>): void {
     this.username = data.username;
     this.email = data.email;
+    this.passwordHash = data.passwordHash
   }
 }

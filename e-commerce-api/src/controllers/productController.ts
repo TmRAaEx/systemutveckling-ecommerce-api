@@ -1,5 +1,6 @@
 import Product from "@models/entities/Product";
 import BaseController from "./BaseController";
+import { mongoDBClient } from "@config/database";
 
 /**
  * ProductController handles all operations related to products,
@@ -113,5 +114,16 @@ export default class ProductController extends BaseController {
 
     await product.delete();
     res.status(204);
+  });
+
+  public getFromCategory = this.handle(async (req, res) => {
+    const { id } = req.params;
+    const filter = {
+      category: mongoDBClient.toObjectId(id),
+    };
+    const products = await Product.getAll(filter);
+    console.log(products);
+
+    res.status(200).json(products);
   });
 }

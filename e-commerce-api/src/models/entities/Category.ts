@@ -46,6 +46,7 @@ export default class Category extends DatabaseObject {
         ],
       });
 
+
       if (results.length > 0) {
         const data = results[0];
 
@@ -63,7 +64,8 @@ export default class Category extends DatabaseObject {
         }
       } else {
         console.warn(
-          "[Category]: No category or subcategory found with the given ID."
+          "[Category]: No category or subcategory found with the given ID.",
+          this.id
         );
       }
     } catch (error) {

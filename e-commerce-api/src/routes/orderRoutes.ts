@@ -13,4 +13,6 @@ router.post("/create", orderController.create);
 
 router.patch("/update/:id", orderController.update);
 
+router.get("/paymentId/:payment_ref", orderController.getByPaymentRef);
+
 export default router;

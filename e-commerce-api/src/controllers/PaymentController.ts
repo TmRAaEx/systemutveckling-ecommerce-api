@@ -63,11 +63,10 @@ export default class StripeController extends BaseController {
         const order = new Order();
         order.id = mongoDBClient.toObjectId(orderId);
         await order.load();
-        console.log(order)
         order.payment_ref = payment_id;
         await order.save();
 
-        break;
+        break;  
       default:
         console.log(`[stripe webhook]: Unhandled event type: ${event.type}`);
     }

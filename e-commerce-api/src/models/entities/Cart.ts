@@ -28,3 +28,4 @@ export default class Cart extends LineItemsObject {
       .filter((item: any) => item !== null); // Filter out null values
   }
 }
+

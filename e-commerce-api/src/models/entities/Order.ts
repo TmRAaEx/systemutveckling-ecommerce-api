@@ -1,7 +1,6 @@
 import { myCollections } from "@config/database";
 import customerDetails from "@interfaces/Customer";
 import LineItemsObject from "../base/LineItemsObject";
-import { log } from "console";
 
 /**
  * Represents an order in the e-commerce system.

@@ -2,6 +2,7 @@ import Order from "@models/entities/Order";
 import BaseController from "./BaseController";
 import Product from "@models/entities/Product";
 import { ObjectId } from "mongodb";
+import { log } from "console";
 
 export default class OrderController extends BaseController {
   public getAll = this.handle(async (req, res) => {
@@ -24,6 +25,29 @@ export default class OrderController extends BaseController {
       product.price = item.price;
       order.addProduct(product, item.quantity);
     });
+    res.status(200).json(order);
+  });
+
+  public getByPaymentRef = this.handle(async (req, res) => {
+    const { payment_ref } = req.params;
+
+    if (!payment_ref) {
+      res.status(400).json({ error: "Payment reference is required." });
+      return;
+    }
+
+    // Find the order by payment_ref
+    const filter = { payment_ref };
+    const orders = await Order.getAll(filter);
+
+    if (orders.length === 0) {
+      res
+        .status(404)
+        .json({ error: "Order not found with the given payment reference." });
+      return;
+    }
+
+    const order = orders[0];
     res.status(200).json(order);
   });
 

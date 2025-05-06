@@ -1,6 +1,7 @@
 import Product from "@models/entities/Product";
 import BaseController from "./BaseController";
 import { mongoDBClient } from "@config/database";
+import { log } from "console";
 
 /**
  * ProductController handles all operations related to products,
@@ -63,7 +64,9 @@ export default class ProductController extends BaseController {
     product.name = name;
     product.image = image;
     product.description = description;
-    product.category = category;
+    product.category = mongoDBClient.toObjectId(
+      category._id.length > 0 ? category._id : "6811be5f95b13d905c550e4d"
+    );
     await product.save();
 
     res.status(200).json(product);
@@ -95,7 +98,9 @@ export default class ProductController extends BaseController {
     product.name = name;
     product.image = image;
     product.description = description;
-    product.category = mongoDBClient.toObjectId(category);
+    product.category = mongoDBClient.toObjectId(
+      category._id.length > 0 ? category._id : "6811be5f95b13d905c550e4d"
+    );
     await product.save();
 
     res.status(201).json(product);

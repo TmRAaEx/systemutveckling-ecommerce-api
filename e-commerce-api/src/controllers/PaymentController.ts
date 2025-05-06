@@ -7,12 +7,13 @@ const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 export default class StripeController extends BaseController {
   public createCheckoutSession = this.handle(async (req, res) => {
     const { lineItems, orderId } = req.body;
-    const clientSecret = await this.createStripeCheckoutSession(
+
+    const { client_secret } = await this.createStripeCheckoutSession(
       lineItems,
       orderId
     );
 
-    res.status(200).json({ clientSecret: clientSecret });
+    res.status(200).json({ clientSecret: client_secret });
   });
 
   public getSessionStatus = this.handle(async (req, res) => {
@@ -62,7 +63,7 @@ export default class StripeController extends BaseController {
         const order = new Order();
         order.id = mongoDBClient.toObjectId(orderId);
         await order.load();
-
+        console.log(order)
         order.payment_ref = payment_id;
         await order.save();
 
@@ -83,7 +84,7 @@ export default class StripeController extends BaseController {
   private async createStripeCheckoutSession(
     lineItems: LineItem[],
     orderId: Order["id"]
-  ): Promise<string> {
+  ): Promise<any> {
     return await stripe.checkout.sessions.create({
       line_items: [...lineItems],
       mode: "payment",

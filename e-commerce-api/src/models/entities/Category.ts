@@ -10,6 +10,7 @@ export default class Category extends DatabaseObject {
   public name: string = "";
   public description: string = "";
   public subCats: Category[] = [];
+  public parent: Category["id"] = null;
 
   /**
    * Initializes a new instance of the Category class.
@@ -46,7 +47,6 @@ export default class Category extends DatabaseObject {
         ],
       });
 
-
       if (results.length > 0) {
         const data = results[0];
 
@@ -82,5 +82,6 @@ export default class Category extends DatabaseObject {
     this.name = data.name;
     this.description = data.description;
     this.subCats = data.subCats;
+    this.parent = data.parent;
   }
 }

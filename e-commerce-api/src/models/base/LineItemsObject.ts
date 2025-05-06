@@ -1,6 +1,7 @@
 import DatabaseObject from "./DatabaseObject";
 import LineItem from "./LineItem";
 import Product from "../entities/Product";
+import { log } from "console";
 
 export default class LineItemsObject extends DatabaseObject {
   public lineItems: LineItem[] = [];
@@ -11,7 +12,7 @@ export default class LineItemsObject extends DatabaseObject {
 
   public addProduct(product: Product, quantity: number) {
     const existingItem = this.lineItems.find(
-      (item) => item.product?.id === product.id
+      (item) => item.productId === product.id
     );
     if (existingItem) {
       existingItem.setQuantity(existingItem.quantity + quantity);

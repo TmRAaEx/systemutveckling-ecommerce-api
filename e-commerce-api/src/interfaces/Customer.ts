@@ -1,5 +1,6 @@
 export default interface customerDetails {
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
   address: string;
 }

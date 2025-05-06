@@ -1,12 +1,12 @@
 import Product from "../entities/Product";
 
 export default class LineItem {
-  public product: Product | null = null;
+  public productId: Product["id"] | null = null;
   public quantity: number = 0;
   public price: number = 0;
 
   constructor(product: Product, quantity: number) {
-    this.product = product;
+    this.productId = product.id;
     this.quantity = quantity;
     this.price = product.price;
   }
@@ -17,7 +17,7 @@ export default class LineItem {
 
   public toJSON() {
     return {
-      product: this.product,
+      productId: this.productId,
       quantity: this.quantity,
       price: this.price,
     };

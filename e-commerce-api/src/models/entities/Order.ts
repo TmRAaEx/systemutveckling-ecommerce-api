@@ -1,6 +1,7 @@
 import { myCollections } from "@config/database";
 import customerDetails from "@interfaces/Customer";
 import LineItemsObject from "../base/LineItemsObject";
+import { log } from "console";
 
 /**
  * Represents an order in the e-commerce system.
@@ -11,9 +12,10 @@ export default class Order extends LineItemsObject {
   }
 
   public customerDetails: customerDetails = {
-    name: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    address: ""
+    address: "",
   };
 
   public payment_ref: string = "";
@@ -34,6 +36,7 @@ export default class Order extends LineItemsObject {
     // Set customer details
     this.customerDetails = data.customerDetails;
     this.payment_ref = data.payment_ref;
+
 
     this.lineItems = data.lineItems
       .map((item: any) => {

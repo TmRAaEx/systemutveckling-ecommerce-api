@@ -16,11 +16,11 @@ export default class OrderController extends BaseController {
     order.lineItems;
 
     order.lineItems.forEach((item) => {
-      if (!item.product?.id) {
+      if (!item.productId) {
         return;
       }
       const product = new Product();
-      product.id = item.product.id;
+      product.id = item.productId;
       product.price = item.price;
       order.addProduct(product, item.quantity);
     });
@@ -71,7 +71,7 @@ export default class OrderController extends BaseController {
           quantity: number;
         }) => {
           const existingItem = order.lineItems.find(
-            (lineItem) => lineItem.product?.id === item.product.id
+            (lineItem) => lineItem.productId === item.product.id
           );
 
           if (existingItem) {
@@ -91,7 +91,7 @@ export default class OrderController extends BaseController {
       // Remove line items that are not in the updated list
       order.lineItems.forEach((lineItem) => {
         const isInUpdatedList = lineItems.some(
-          (item) => item.product.id === lineItem.product?.id
+          (item) => item.product.id === lineItem.productId
         );
 
         if (!isInUpdatedList) {

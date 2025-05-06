@@ -6,11 +6,13 @@ import cors from "cors";
 
 export const app: Express = express();
 
+//stripe routes must be here
+
 //middelwares
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //routes
-app.use("/api", router);
 app.use("/stripe", stripeRouter);
+
+app.use("/api", express.json(), router);

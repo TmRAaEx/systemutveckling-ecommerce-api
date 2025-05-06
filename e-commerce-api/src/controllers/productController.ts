@@ -95,7 +95,7 @@ export default class ProductController extends BaseController {
     product.name = name;
     product.image = image;
     product.description = description;
-    product.category = category;
+    product.category = mongoDBClient.toObjectId(category);
     await product.save();
 
     res.status(201).json(product);

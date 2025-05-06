@@ -1,4 +1,4 @@
-import { app } from "./app"; //import app setup
+import { app } from "./app";
 import { mongoDBClient } from "@config/database";
 import dotenv from "dotenv";
 

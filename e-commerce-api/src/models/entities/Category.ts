@@ -29,7 +29,8 @@ export default class Category extends DatabaseObject {
   }
 
   /**
-   * Override the default load function
+   * Override the default load function to be able to filter for both subcats and parent cats
+   * currently not working properly
    */
   public async load(): Promise<void> {
     const collectionName = this.getCollection();

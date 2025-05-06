@@ -2,7 +2,6 @@ import Order from "@models/entities/Order";
 import BaseController from "./BaseController";
 import Product from "@models/entities/Product";
 import { ObjectId } from "mongodb";
-import { log } from "console";
 
 export default class OrderController extends BaseController {
   public getAll = this.handle(async (req, res) => {
@@ -72,8 +71,8 @@ export default class OrderController extends BaseController {
   });
 
   public update = this.handle(async (req, res) => {
-    const { id } = req.params; // Extract the order ID from the request parameters
-    const { customerDetails, lineItems } = req.body; // Extract the updated data from the request body
+    const { id } = req.params;
+    const { customerDetails, lineItems } = req.body;
 
     // Load the existing order
     const order = await this.createInstance(id, Order);
@@ -124,10 +123,8 @@ export default class OrderController extends BaseController {
       });
     }
 
-    // Save the updated order to the database
     await order.save();
 
-    // Respond with the updated order
     res.status(200).json(order);
   });
 }

@@ -22,7 +22,6 @@ export default class CartController extends BaseController {
     const { lineItems, userId }: { lineItems: any[]; userId: string } =
       req.body;
 
-    console.log("lineItems", lineItems, "userID", userId);
     const cart = new Cart();
     cart.user = mongoDBClient.toObjectId(userId);
     for (const item of lineItems) {

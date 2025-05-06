@@ -127,7 +127,6 @@ export default class ProductController extends BaseController {
       category: mongoDBClient.toObjectId(id),
     };
     const products = await Product.getAll(filter);
-    console.log(products);
 
     res.status(200).json(products);
   });
